@@ -10,14 +10,13 @@ Living status. The agent re-reads this before resuming and updates it after ever
 <!-- Mirror the Slice Plan in design.md; flip status as you go. -->
 - [x] Slice 0 — Prep: repo restructure + project skeleton (no tests) · done
 - [x] Slice 1 — Walking skeleton: copy template + fill project name · done
-- [ ] Slice 2 — Refuse a non-empty target directory · not-started
+- [x] Slice 2 — Refuse a non-empty target directory · done
 - [ ] Slice 3 — Fill description + 8 stack lines; blanks → TODO · not-started
 - [ ] Slice 4 — CLI adapter: arg parse + prompts + next-steps message · not-started
 
 ## Current slice
 
-Slice 1 done. **Slice 2 (refuse non-empty target dir)** is next: write a failing test that
-`scaffold` rejects a non-empty `targetDir` and writes nothing.
+Slice 2 done. **Slice 3 (fill description + 8 stack lines; blanks → TODO)** is next.
 
 ## Blocked
 
@@ -26,7 +25,7 @@ None. Git initialized; on branch `feat/create-sdd`.
 ## Test count
 
 <!-- The Stop hook tracks this in .tdd-test-count; mirror the latest here for humans. -->
-Last green: 3
+Last green: 4
 
 ## Session notes
 
@@ -49,5 +48,7 @@ Last green: 3
   commit. Added `/.claude/` to `.gitignore` as a guard. **The duplicated files may resurrect
   again** — verify the tracked tree before each commit. Likely root cause: the repo lives on
   a synced/cached drive (J:); consider relocating it.
-- Next: **Slice 2** — refuse a non-empty target dir (PENDING user decision on the
-  environment issue + whether to keep a root `.claude` for the dev repo).
+- Done: **Slice 2** — `scaffold` now rejects a non-empty target dir via `assertTargetIsEmpty`
+  (checks before any write, so no partial writes); a missing dir is still fine. +1 test
+  (4 total). User chose to pause the sync tool and continue here.
+- Next: **Slice 3** — fill description + 8 stack lines; blanks → `{{TODO: …}}`.

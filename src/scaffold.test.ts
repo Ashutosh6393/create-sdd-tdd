@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { mkdtemp, readdir, readFile, rm } from 'node:fs/promises';
+import { mkdtemp, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
@@ -51,5 +51,17 @@ describe('scaffold', () => {
       const copied = await readFile(join(scaffoldedTemplatesDir, file), 'utf8');
       expect(copied, `${file} must be copied verbatim`).toBe(original);
     }
+  });
+
+  it('refuses to scaffold into a non-empty directory and writes nothing', async () => {
+    await writeFile(join(target, 'pre-existing.txt'), 'keep me');
+
+    await expect(scaffold({ projectName: 'demo' }, target)).rejects.toThrow();
+
+    // no template content was written
+    expect(existsSync(join(target, 'CLAUDE.md'))).toBe(false);
+    expect(existsSync(join(target, '.claude'))).toBe(false);
+    // the pre-existing file is untouched
+    expect(await readFile(join(target, 'pre-existing.txt'), 'utf8')).toBe('keep me');
   });
 });
