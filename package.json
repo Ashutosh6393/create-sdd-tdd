@@ -11,6 +11,9 @@
     "dist",
     "template"
   ],
+  "bin": {
+    "create-sdd": "./dist/cli.js"
+  },
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
@@ -22,5 +25,8 @@
     "tsup": "^8.5.1",
     "typescript": "^6.0.3",
     "vitest": "^4.1.9"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.6.0"
   }
 }

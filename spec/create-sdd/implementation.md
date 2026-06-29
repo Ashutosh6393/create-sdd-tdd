@@ -2,7 +2,7 @@
 
 Living status. The agent re-reads this before resuming and updates it after every commit.
 
-## Status: in-progress
+## Status: done
 <!-- not-started | in-progress | blocked | done -->
 
 ## Slices
@@ -12,12 +12,16 @@ Living status. The agent re-reads this before resuming and updates it after ever
 - [x] Slice 1 — Walking skeleton: copy template + fill project name · done
 - [x] Slice 2 — Refuse a non-empty target directory · done
 - [x] Slice 3 — Fill description + 8 stack lines; blanks → TODO · done
-- [ ] Slice 4 — CLI adapter: arg parse + prompts + next-steps message · in-progress
+- [x] Slice 4 — CLI adapter: arg parse + prompts + next-steps message · done
 
 ## Current slice
 
-Slice 3 done. **Slice 4 (CLI adapter)** in progress: arg parse + `@clack` prompts + wiring
-to `scaffold` + next-steps message.
+All slices done. Feature complete: `npx create-sdd <dir>` scaffolds the template, fills
+name/description/stack, and prints the next-steps handoff.
+
+Remaining manual step: an interactive smoke run in a real terminal —
+`node dist/cli.js <new-dir>` (build first with `npm run build`). The headless harness can't
+drive `@clack`'s TTY, so this wasn't run here.
 
 ## Blocked
 
@@ -26,7 +30,7 @@ None. Git initialized; on branch `feat/create-sdd`.
 ## Test count
 
 <!-- The Stop hook tracks this in .tdd-test-count; mirror the latest here for humans. -->
-Last green: 6
+Last green: 11
 
 ## Session notes
 
@@ -56,5 +60,11 @@ Last green: 6
   `STACK_PLACEHOLDERS` map; blank/omitted stack field → `{{TODO: <label>}}`. `description`
   and `stack` are optional on `ScaffoldOptions` (keeps the append-only Slice-1/2 tests
   valid). +2 tests (6 total). `tsc` clean.
-- Next: **Slice 4** — CLI adapter (`src/cli.ts`): parse `<dir>`, prompt for missing dir,
-  default name to basename, `@clack` prompts, call `scaffold`, print next-steps; clean cancel.
+- Done: **Slice 4** — CLI adapter. `src/options.ts` adds `resolveOptions(argv, ask)` (+
+  `parseArgs`, `defaultProjectName`) with an injectable `Asker` so the wiring is unit-tested
+  without a TTY (ADR-002): dir from arg-or-prompt, name defaults to basename, stack examples
+  as editable defaults, cleared field → omitted (→ `{{TODO}}`). `src/cli.ts` is the thin
+  `@clack` shell (intro/prompts/cancel/outro) calling `scaffold`; `bin` added to package.json;
+  `@clack/prompts` dep added. +5 option tests (11 total). `tsc` clean; `tsup` build produces
+  `dist/cli.js` (shebang + exec bit) and the binary launches/renders prompts.
+- Feature complete. Manual interactive smoke (`node dist/cli.js <dir>`) pending a real terminal.

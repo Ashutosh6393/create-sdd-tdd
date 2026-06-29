@@ -23,7 +23,7 @@ const templateDir = join(here, '..', 'template');
 
 // Maps each stack field to its exact placeholder in template/CLAUDE.md and the human label
 // used in the {{TODO: …}} marker left for unfilled fields.
-const STACK_PLACEHOLDERS: Record<StackField, { placeholder: string; label: string }> = {
+export const STACK_PLACEHOLDERS: Record<StackField, { placeholder: string; label: string }> = {
   language: { placeholder: '{{e.g. TypeScript (strict), Bun}}', label: 'Language / runtime' },
   framework: { placeholder: '{{e.g. Next.js, Express}}', label: 'Framework(s)' },
   database: { placeholder: '{{e.g. PostgreSQL + Drizzle (NOT Prisma)}}', label: 'Database / ORM' },
