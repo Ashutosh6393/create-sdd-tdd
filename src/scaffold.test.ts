@@ -53,6 +53,37 @@ describe('scaffold', () => {
     }
   });
 
+  it('fills the one-line description in the root CLAUDE.md', async () => {
+    await scaffold({ projectName: 'demo', description: 'a tiny app' }, target);
+
+    const claudeMd = await readFile(join(target, 'CLAUDE.md'), 'utf8');
+    expect(claudeMd).toContain('a tiny app');
+    expect(claudeMd).not.toContain('{{one-line description}}');
+  });
+
+  it('fills provided stack lines and writes {{TODO: …}} for blank or omitted ones', async () => {
+    await scaffold(
+      {
+        projectName: 'demo',
+        description: 'x',
+        stack: { language: 'Rust', testing: 'Jest', lint: '' },
+      },
+      target,
+    );
+
+    const claudeMd = await readFile(join(target, 'CLAUDE.md'), 'utf8');
+
+    // provided values substituted
+    expect(claudeMd).toContain('**Language / runtime**: Rust');
+    expect(claudeMd).toContain('**Testing**: Jest');
+    // every stack placeholder is resolved (none of the eight {{e.g. …}} tokens remain)
+    expect(claudeMd).not.toContain('{{e.g.');
+    // blank value → TODO marker
+    expect(claudeMd).toContain('**Lint / format**: {{TODO: Lint / format}}');
+    // omitted field → TODO marker
+    expect(claudeMd).toContain('**Database / ORM**: {{TODO: Database / ORM}}');
+  });
+
   it('refuses to scaffold into a non-empty directory and writes nothing', async () => {
     await writeFile(join(target, 'pre-existing.txt'), 'keep me');
 

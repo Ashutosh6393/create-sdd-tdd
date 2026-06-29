@@ -11,12 +11,13 @@ Living status. The agent re-reads this before resuming and updates it after ever
 - [x] Slice 0 — Prep: repo restructure + project skeleton (no tests) · done
 - [x] Slice 1 — Walking skeleton: copy template + fill project name · done
 - [x] Slice 2 — Refuse a non-empty target directory · done
-- [ ] Slice 3 — Fill description + 8 stack lines; blanks → TODO · not-started
-- [ ] Slice 4 — CLI adapter: arg parse + prompts + next-steps message · not-started
+- [x] Slice 3 — Fill description + 8 stack lines; blanks → TODO · done
+- [ ] Slice 4 — CLI adapter: arg parse + prompts + next-steps message · in-progress
 
 ## Current slice
 
-Slice 2 done. **Slice 3 (fill description + 8 stack lines; blanks → TODO)** is next.
+Slice 3 done. **Slice 4 (CLI adapter)** in progress: arg parse + `@clack` prompts + wiring
+to `scaffold` + next-steps message.
 
 ## Blocked
 
@@ -25,7 +26,7 @@ None. Git initialized; on branch `feat/create-sdd`.
 ## Test count
 
 <!-- The Stop hook tracks this in .tdd-test-count; mirror the latest here for humans. -->
-Last green: 4
+Last green: 6
 
 ## Session notes
 
@@ -51,4 +52,9 @@ Last green: 4
 - Done: **Slice 2** — `scaffold` now rejects a non-empty target dir via `assertTargetIsEmpty`
   (checks before any write, so no partial writes); a missing dir is still fine. +1 test
   (4 total). User chose to pause the sync tool and continue here.
-- Next: **Slice 3** — fill description + 8 stack lines; blanks → `{{TODO: …}}`.
+- Done: **Slice 3** — fill `{{one-line description}}` and the 8 stack placeholders via a
+  `STACK_PLACEHOLDERS` map; blank/omitted stack field → `{{TODO: <label>}}`. `description`
+  and `stack` are optional on `ScaffoldOptions` (keeps the append-only Slice-1/2 tests
+  valid). +2 tests (6 total). `tsc` clean.
+- Next: **Slice 4** — CLI adapter (`src/cli.ts`): parse `<dir>`, prompt for missing dir,
+  default name to basename, `@clack` prompts, call `scaffold`, print next-steps; clean cancel.
