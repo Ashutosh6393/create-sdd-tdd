@@ -15,10 +15,10 @@ slice's blast radius, it lands here instead of expanding the slice.
   `template/spec/README.md` but not present in `_templates` today).
 
 ## Technical debt
-- After the restructure (ADR-001) the repo root loses its `CLAUDE.md`. Decide whether the
-  CLI repo grows its own root `CLAUDE.md` for development (separate from the shipped
-  `template/CLAUDE.md`).
-- This repo is not a git repository yet; `/build-slice` expects a `feat/create-sdd` branch.
+- ~~After the restructure (ADR-001) the repo root loses its `CLAUDE.md`.~~ Resolved: added a
+  root `CLAUDE.md` (CLI engineering guide) + `README.md` (user-facing), distinct from the
+  shipped `template/CLAUDE.md`.
+- ~~This repo is not a git repository yet.~~ Resolved in Slice 0 (`git init` + `feat/create-sdd`).
 
 ## Nice to have
 - `git init` + initial commit after scaffolding.
