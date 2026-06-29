@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.tgz
+.DS_Store
+
+# The shipped Claude config lives at template/.claude. The repo ROOT .claude holds only
+# Claude Code's local working files and must never be tracked (it was wrongly resurrected
+# once by a filesystem sync/cache re-adding git-mv'd source files — see implementation.md).
+/.claude/
