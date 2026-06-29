@@ -42,4 +42,12 @@ Last green: 3
   `src/scaffold.test.ts`. Copies bundled `template/` into target (incl. `.claude/`, empty
   `settings.json`), fills `{{PROJECT_NAME}}` in root `CLAUDE.md` only, `_templates` verbatim
   guard green. `tsc --noEmit` clean. Test count 0 → 3.
-- Next: **Slice 2** — refuse a non-empty target dir.
+- ⚠️ Environmental issue hit during Slice 1: the filesystem resurrected the Slice 0
+  `git mv` source files (root `.claude/`, `spec/_templates/`, `spec/README.md`,
+  `spec/SPEC-WORKFLOW.md`) — a sync/cache layer re-creating deleted files. They got wrongly
+  re-tracked by `git add -A` in commit d16438f, then removed in a follow-up correction
+  commit. Added `/.claude/` to `.gitignore` as a guard. **The duplicated files may resurrect
+  again** — verify the tracked tree before each commit. Likely root cause: the repo lives on
+  a synced/cached drive (J:); consider relocating it.
+- Next: **Slice 2** — refuse a non-empty target dir (PENDING user decision on the
+  environment issue + whether to keep a root `.claude` for the dev repo).
