@@ -1,0 +1,38 @@
+name: Publish to npm
+
+# Publishes create-sdd-tdd to npm whenever a version tag (v1.2.3) is pushed.
+# Auth is npm Trusted Publishing (OIDC) — no NPM_TOKEN secret. The id-token
+# permission lets the runner mint a short-lived token npm trusts, and npm
+# attaches a provenance statement automatically.
+#
+# Release flow:
+#   npm version patch   # bumps package.json + creates the vX.Y.Z tag
+#   git push --follow-tags
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+  id-token: write # required for OIDC trusted publishing
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false # never cache in release builds
+
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+      # Trusted publishing: no token, provenance is generated automatically.
+      - run: npm publish
