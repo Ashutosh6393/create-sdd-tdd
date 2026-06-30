@@ -14,6 +14,12 @@
     "claude"
   ],
   "author": "vashutosh625@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ashutosh6393/create-sdd-tdd.git"
+  },
+  "homepage": "https://github.com/Ashutosh6393/create-sdd-tdd#readme",
+  "bugs": "https://github.com/Ashutosh6393/create-sdd-tdd/issues",
   "type": "module",
   "license": "MIT",
   "engines": {
