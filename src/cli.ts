@@ -14,7 +14,7 @@ const ask: Asker = async (message, initialValue) => {
 };
 
 async function main(): Promise<void> {
-  intro('create-sdd — scaffold a spec-driven-development project');
+  intro('create-sdd-tdd — scaffold a spec-driven-development project');
 
   const { targetDir, options } = await resolveOptions(process.argv.slice(2), ask);
 

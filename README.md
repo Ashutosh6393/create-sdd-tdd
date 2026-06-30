@@ -1,12 +1,12 @@
-# create-sdd
+# create-sdd-tdd
 
 Scaffold a **spec-driven-development + TDD** project in one command.
 
 ```bash
-npx create-sdd my-app
+npx create-sdd-tdd my-app
 ```
 
-`create-sdd` drops a ready-to-use AI build workflow into a new directory: the spec
+`create-sdd-tdd` drops a ready-to-use AI build workflow into a new directory: the spec
 templates, the `/grill-with-docs → /to-prd → /spec → /build-slice` command pipeline, and a
 root `CLAUDE.md` it fills in for you (project name, one-line description, tech stack). The
 parts that should emerge from discovery — features and architecture — are left as guided
@@ -15,10 +15,10 @@ placeholders for the workflow to fill later.
 ## Usage
 
 ```bash
-npx create-sdd <dir>
+npx create-sdd-tdd <dir>
 ```
 
-- Pass a target directory: `npx create-sdd my-app` creates `./my-app`.
+- Pass a target directory: `npx create-sdd-tdd my-app` creates `./my-app`.
 - Omit it and you'll be prompted for one.
 - The project name defaults to the directory's basename — press enter to accept.
 
